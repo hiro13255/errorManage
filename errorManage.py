@@ -2,8 +2,8 @@ import requests, webbrowser,shelve
 from bs4 import BeautifulSoup
 import pyperclip as py
 
-error_shelf = shelve.open('errorDict')
-serch_texts = py.paste()
+error_shelf = shelve.open('./errorDict')
+sarch_texts = py.paste()
 
 # 指定文字列意外入力された時の表示関数
 def y_or_n():
@@ -27,7 +27,7 @@ def makeErrorSolution():
 
 # エラー内容、解決方法表示関数
 def display(cont, sol):
-    print("Error :" + serch_texts + "\n")
+    print("Error :" + sarch_texts + "\n")
     print("Error Contents :" + cont)
 
     for i in sol:
@@ -41,24 +41,24 @@ def enterError(contents, solList):
     return enter_error_dict
 
 # 登録されているエラー検索関数
-def dictSerch():
+def dictSarch():
     flag = 0
-    if serch_texts in error_shelf:
-        print(serch_texts + " confirmed")
-        contents = error_shelf[serch_texts]['contents']
-        solList = error_shelf[serch_texts]['solutions']
+    if sarch_texts in error_shelf:
+        print(sarch_texts + " confirmed")
+        contents = error_shelf[sarch_texts]['contents']
+        solList = error_shelf[sarch_texts]['solutions']
         
         if contents == '':
             flag = 1
             while True:
-                print("not registration problem. serch google?")
+                print("not registration problem. sarch google?")
                 answer = input("y/n:")
                 if "y" == answer:
-                    num = input("serch count(1~5) or End with enter without input:")
+                    num = input("sarch count(1~5) or End with enter without input:")
                     if num == '':
                         flag = 0
                         break
-                    googleSerch(num)
+                    googleSarch(num)
                     break
                 elif "n" == answer:
                     break
@@ -69,15 +69,15 @@ def dictSerch():
         if solList == '':
             flag = 1
             while True:
-                print("not registration solution. serch google?")
+                print("not registration solution. sarch google?")
                 answer = input("y/n:")
                 if "y" == answer:
                     num = input(
-                        "serch count(1~5) or End with enter without input:")
+                        "sarch count(1~5) or End with enter without input:")
                     if num == '':
                         flag = 0
                         break
-                    googleSerch(num)
+                    googlesarch(num)
                     break
                 elif "n" == answer:
                     break
@@ -91,7 +91,7 @@ def dictSerch():
             while True:
                 user_input = input("Would you like to register?(y/n)->")
                 if "y" == user_input:
-                    error_shelf[serch_texts] = enterError(contents, solList)
+                    error_shelf[sarch_texts] = enterError(contents, solList)
                     break
                 elif "n" == user_input:
                     break
@@ -100,15 +100,15 @@ def dictSerch():
 
     else:
         while True:
-            print("Unregistration error. serch google?")
+            print("Unregistration error. sarch google?")
             answer = input("y/n:")
             if "y" == answer:
                 num = input(
-                    "serch count(1~5) or End with enter without input:")
+                    "sarch count(1~5) or End with enter without input:")
                 if num == '':
                     flag = 0
                     break
-                googleSerch(num)
+                googlesarch(num)
                 break
             elif "n" == answer:
                 break
@@ -122,7 +122,7 @@ def dictSerch():
         while True:
             user_input = input("Would you like to register?(y/n)->")
             if "y" == user_input:
-                error_shelf[serch_texts] = enterError(contents, solution)
+                error_shelf[sarch_texts] = enterError(contents, solution)
                 break
             elif "n" == user_input:
                 break
@@ -131,8 +131,8 @@ def dictSerch():
     print("#" * 50)
 
 # グーグル検索関数
-def googleSerch(num):
-    url = 'https://www.google.com/search?q=' + serch_texts
+def googleSarch(num):
+    url = 'https://www.google.com/search?q=' + sarch_texts
     result = requests.get(url).text
     soup = BeautifulSoup(result, 'html.parser')
     tags = soup.select('.kCrYT a')
@@ -144,11 +144,11 @@ def googleSerch(num):
 
 if __name__ == "__main__":
     while True:
-        menu = input("【select Menu】 -> 1: serch error 2:end \n input key:")
+        menu = input("【select Menu】 -> 1: sarch error 2:end \n input key:")
         if "1" == menu:
-            dictSerch()
+            dictSarch()
         elif "2" == menu:
-            exit()
+            break
         else:
             print("please [1] or [2]")
 
