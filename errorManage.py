@@ -77,7 +77,7 @@ def dictSarch():
                     if num == '':
                         flag = 0
                         break
-                    googlesarch(num)
+                    googleSarch(num)
                     break
                 elif "n" == answer:
                     break
@@ -108,7 +108,7 @@ def dictSarch():
                 if num == '':
                     flag = 0
                     break
-                googlesarch(num)
+                googleSarch(num)
                 break
             elif "n" == answer:
                 break
